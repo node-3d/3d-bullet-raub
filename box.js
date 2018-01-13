@@ -14,7 +14,10 @@ class Box {
 		const mass = opts.mass || 1;
 		
 		const geometry = new three.BoxGeometry(size.x, size.y, size.z);
-		const material = new three.MeshLambertMaterial({ color: Math.round(0xFFFFFF * Math.random()) });
+		const material = new three.MeshLambertMaterial({
+			color: Math.round(0xFFFFFF * Math.random()),
+			// map: new THREE.TextureLoader().load('TODO'),
+		});
 		const mesh = new three.Mesh(geometry, material);
 		screen.scene.add(mesh);
 		
