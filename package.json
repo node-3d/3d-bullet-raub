@@ -15,6 +15,6 @@
   "license": "MIT",
   "dependencies": {
     "node-3d-ready-raub": "0.3.2",
-    "node-bullet-raub": "0.0.4"
+    "node-bullet-raub": "0.0.5"
   }
 }
