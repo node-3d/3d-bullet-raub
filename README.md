@@ -1,3 +1,3 @@
-# node-3d-qml-demo
+# Bullet Demo
 
-Demo example for node-bullet
+Demo example for [node-bullet](https://github.com/raub/node-bullet)

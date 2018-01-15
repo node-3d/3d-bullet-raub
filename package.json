@@ -13,8 +13,12 @@
   ],
   "author": "Luis Blanco <raubtierxxx@gmail.com> (https://github.com/raub)",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/raub/node-3d-ready.git"
+  },
   "dependencies": {
-    "node-3d-ready-raub": "0.3.2",
+    "node-3d-ready-raub": "0.3.3",
     "node-bullet-raub": "0.0.5"
   }
 }
