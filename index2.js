@@ -8,7 +8,7 @@ const Box = require('./firgures/cone');
 
 //-----------------------------------------------------------------------------------
 // Don't work
-//var spriteMap = new THREE.TextureLoader().load(__dirname + 'textures/sprite.png');
+//var spriteMap = new THREE.TextureLoader().load(__dirname + '/textures/sprite.png');
 //var spriteMap = new THREE.TextureLoader().load(__dirname + '/textures/sprite2.png');
 //var spriteMap = new THREE.TextureLoader().load(__dirname + '/textures/texture3.gif');
 
