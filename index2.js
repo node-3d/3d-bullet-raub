@@ -71,8 +71,8 @@ for (let i = 0; i < 20; i++) {
 			z: 5 * Math.random()
 		},
 		size: {
-			x: 1,
-			y: 2,
+			x: 2,
+			y: 5,
 			z: 16
 		},
 		mass: 1 + 2 * Math.random()
