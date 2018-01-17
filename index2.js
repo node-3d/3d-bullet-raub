@@ -4,6 +4,7 @@ const { Screen, three, loop } = require('node-3d-ready-raub');
 const { Scene, Body } = require('node-bullet-raub');
 
 const Cone = require('./firgures/cone');
+const Box = require('./firgures/cone');
 
 //-----------------------------------------------------------------------------------
 // Don't work
@@ -70,9 +71,9 @@ for (let i = 0; i < 20; i++) {
 			z: 5 * Math.random()
 		},
 		size: {
-			x: 2,
-			y: 20,
-			z: 32
+			x: 1,
+			y: 2,
+			z: 16
 		},
 		mass: 1 + 2 * Math.random()
 	});

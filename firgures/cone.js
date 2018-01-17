@@ -8,7 +8,7 @@ class Cone {
 		const { screen, scene } = opts;
 
 		const pos = opts.pos || { x: 0, y: 0, z: 0 };
-		const size = opts.size || { x: 5, y: 32, z: 32 };
+		const size = opts.size || { x: 5, y: 5, z: 32 };
 		const mass = opts.mass || 1;
 
 		const geometry = new three.ConeGeometry(size.x, size.y, size.z);
