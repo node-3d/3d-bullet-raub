@@ -4,7 +4,7 @@ const { Screen, three, loop } = require('node-3d-ready-raub');
 const { Scene, Body } = require('node-bullet-raub');
 
 const Cone = require('./firgures/cone');
-const Sphere = require('./firgures/sphere');
+const Box = require('./firgures/cone');
 
 //-----------------------------------------------------------------------------------
 // Don't work
@@ -29,7 +29,57 @@ const pgeo = new THREE.PlaneGeometry(200, 200, 4, 4);
 // Don't work
 //const pmat = new THREE.SpriteMaterial({ map: spriteMap, color: 0xffffff });
 
-var spriteMaterial = new THREE.MeshBasicMaterial({ map: spriteMap });
+// work
+// var spriteMaterial = new THREE.MeshBasicMaterial({ map: spriteMap });
+spriteMap.wrapS = THREE.RepeatWrapping;
+spriteMap.wrapT = THREE.RepeatWrapping;
+var spriteMaterial = new THREE.ShaderMaterial({
+	blending: 'additive',
+	depthTest: true,
+	transparent: false,
+	uniforms: { tex: { type: 't', value: spriteMap } },
+
+	vertexShader: `
+
+		varying vec3 varPos;
+
+		void main() {
+
+			vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+			gl_Position = projectionMatrix * mvPosition;
+			varPos = gl_Position.xyz;
+
+		}
+
+	`,
+	fragmentShader: `
+
+		uniform sampler2D tex;
+
+		varying vec3  varPos;
+
+		void main() {
+
+
+
+			const float stride = 4.0;
+			const float multiplier = 2.0 / stride;
+
+			float whiteX = pow(multiplier * abs(mod(varPos.x, stride) -2.0), 20.0);
+			float whiteY = pow(multiplier * abs(mod(varPos.y, stride) -2.0), 20.0);
+			vec4 white = vec4(max(whiteX, whiteY));
+
+			// Uncomment for texture
+			// vec4 tcolor = texture2D(tex, varPos.xy * 0.1);
+			// vec4 color = clamp(tcolor + white, vec4(0.0), vec4(1.0));
+			// gl_FragColor = color;
+
+			gl_FragColor = white;
+
+		}
+
+	`
+});
 //-----------------------------------------------------------------------------------
 
 const pmesh = new THREE.Mesh(pgeo, spriteMaterial);
@@ -62,7 +112,7 @@ plane.type = 'plane';
 for (let i = 0; i < 20; i++) {
 	//const size1 = 4 * Math.random();
 	//const size2 = 64 * Math.random();
-	new Sphere({
+	new Cone({
 		screen,
 		scene,
 		pos: {
@@ -72,8 +122,8 @@ for (let i = 0; i < 20; i++) {
 		},
 		size: {
 			x: 2,
-			y: 32,
-			z: 32
+			y: 5,
+			z: 16
 		},
 		mass: 1 + 2 * Math.random()
 	});
