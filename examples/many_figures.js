@@ -1,6 +1,5 @@
 ('use strict');
-//const { scene, screen } = require('./word/word');
-const { scene, screen } = require('./word/word2');
+const { scene, screen } = require('./word/word_mipmapping');
 const { Box, Sphere, Cylinder } = require('../firgures/figures');
 const { getRandom } = require('./utils/utils');
 

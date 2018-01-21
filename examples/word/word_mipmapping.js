@@ -1,7 +1,10 @@
 const { Screen, three, loop } = require('node-3d-ready-raub');
 const { Scene, Body } = require('node-bullet-raub');
 
-var spriteMap = new THREE.TextureLoader().load('../textures/crate.gif');
+const loadTexture = fileName => new THREE.TextureLoader().load(`../textures/${fileName}`);
+const spriteMap = loadTexture('texture_1.jpg');
+// const spriteMap = loadTexture('texture_2.jpg');
+// const spriteMap = loadTexture('texture_3.jpg');
 //-----------------------------------------------------------------------------------
 
 const screen = new Screen();
@@ -12,9 +15,15 @@ screen.camera.lookAt(new three.Vector3(0, 0, 0));
 
 loop(screen);
 
-const pgeo = new THREE.PlaneGeometry(200, 200, 4, 4);
+const pgeo = new THREE.PlaneGeometry(800, 800, 4, 4);
 
 //-----------------------------------------------------------------------------------
+spriteMap.wrapS = THREE.RepeatWrapping;
+spriteMap.wrapT = THREE.RepeatWrapping;
+//spriteMap.anisotropy = 2;
+spriteMap.repeat.set(64, 64);
+//spriteMap.generateMipmaps = true;
+//spriteMap.needsUpdate = true;
 var spriteMaterial = new THREE.MeshBasicMaterial({ map: spriteMap });
 //-----------------------------------------------------------------------------------
 const pmesh = new THREE.Mesh(pgeo, spriteMaterial);

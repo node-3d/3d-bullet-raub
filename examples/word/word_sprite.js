@@ -1,7 +1,8 @@
 const { Screen, three, loop } = require('node-3d-ready-raub');
 const { Scene, Body } = require('node-bullet-raub');
 
-var spriteMap = new THREE.TextureLoader().load('../textures/crate.gif');
+const loadTexture = fileName => new THREE.TextureLoader().load(`../textures/${fileName}`);
+const spriteMap = loadTexture('texture_2.jpg');
 //-----------------------------------------------------------------------------------
 
 const screen = new Screen();
