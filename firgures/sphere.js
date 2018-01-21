@@ -8,10 +8,11 @@ class Sphere {
 		const { screen, scene } = opts;
 
 		const pos = opts.pos || { x: 0, y: 0, z: 0 };
-		const size = opts.size || { x: 1, y: 1, z: 1 };
+		const { radius } = opts.size || { radius: 1 };
 		const mass = opts.mass || 1;
+		const segments = opts.segments || 32;
 
-		const geometry = new three.SphereGeometry(size.x, size.y, size.z);
+		const geometry = new three.SphereGeometry(radius, segments, segments);
 		const material = new three.MeshLambertMaterial({
 			color: Math.round(0xffffff * Math.random())
 			// map: new THREE.TextureLoader().load('TODO'),
@@ -25,7 +26,8 @@ class Sphere {
 
 		body.type = 'ball';
 		body.pos = pos;
-		body.size = { x: opts.size.x + 1, y: 4, z: 5 };
+		const diameter = opts.radius * 2;
+		body.size = { x: diameter, y: diameter, z: diameter };
 		body.mass = mass;
 
 		body.on('update', ({ pos, quat }) => {
