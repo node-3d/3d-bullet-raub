@@ -26,7 +26,7 @@ class Sphere {
 
 		body.type = 'ball';
 		body.pos = pos;
-		const diameter = opts.radius * 2;
+		const diameter = radius * 2;
 		body.size = { x: diameter, y: diameter, z: diameter };
 		body.mass = mass;
 

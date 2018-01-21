@@ -8,13 +8,13 @@ function createFigure() {
 		screen,
 		scene,
 		pos: {
-			x: getRandom(0, 30),
+			x: getRandom(-5, 5),
 			y: getRandom(20, 150),
-			z: getRandom(0, 10)
+			z: getRandom(-5, 5)
 		},
-		size:{
+		size: {
 			radius: getRandom(2, 3)
-		}
+		},
 		mass: getRandom(3, 5),
 		segments: 32
 	});

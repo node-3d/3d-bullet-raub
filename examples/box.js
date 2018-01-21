@@ -1,5 +1,6 @@
 'use strict';
-const { scene, screen } = require('./word/word');
+//const { scene, screen } = require('./word/word');
+const { scene, screen } = require('./word/word2');
 const { Box } = require('../firgures/figures');
 const { getRandom } = require('./utils/utils');
 
@@ -8,9 +9,9 @@ function createFigure() {
 		screen,
 		scene,
 		pos: {
-			x: getRandom(0, 5),
+			x: getRandom(-2, 2),
 			y: getRandom(20, 60),
-			z: getRandom(0, 5)
+			z: getRandom(-2, 2)
 		},
 		size: {
 			x: getRandom(1, 6),
