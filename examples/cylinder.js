@@ -1,5 +1,5 @@
 'use strict';
-const { scene, screen } = require('./word/word_mipmapping');
+const { scene, screen } = require('./word/word_move');
 const { Cylinder } = require('../firgures/figures');
 const { getRandom } = require('./utils/utils');
 

@@ -1,5 +1,5 @@
 'use strict';
-const { scene, screen } = require('./word/word_mipmapping');
+const { scene, screen } = require('./word/word_move');
 const { Capsule } = require('../firgures/figures');
 const { getRandom } = require('./utils/utils');
 
@@ -24,3 +24,6 @@ function createFigure() {
 for (let i = 0; i < 30; i++) {
 	createFigure();
 }
+
+var xSpeed = 0.0001;
+var ySpeed = 0.0001;

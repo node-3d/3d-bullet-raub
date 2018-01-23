@@ -1,0 +1,6 @@
+module.exports = {
+	UP_ARROW: 265,
+	DOWN_ARROW: 264,
+	LEFT_ARROW: 263,
+	RIGHT_ARROW: 262
+};
