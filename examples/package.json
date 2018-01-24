@@ -1,0 +1,28 @@
+{
+  "name": "EXAMPLES",
+  "author": "Ivan Pakhotin <raubtierxxx@gmail.com>",
+  "description": "EXAMPLES",
+  "version": "0.0.1",
+  "main": "all-shapes.js",
+  "keywords": [
+    "bullet",
+    "opengl",
+    "3d",
+    "graphics",
+    "physics"
+  ],
+  "maintainers": [
+    {
+      "name": "Ivan Pakhotin",
+    }
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/raub/node-3d-bullet.git"
+  },
+  "dependencies": {
+    "3d-core-raub": "0.0.2",
+    "3d-bullet-raub": "0.0.1"
+  }
+}

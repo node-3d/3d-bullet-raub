@@ -7,3 +7,5 @@ Debug
 package-lock.json
 node_modules
 *.log
+.gitignore
+examples

@@ -1,5 +1,13 @@
-const { Screen, three, loop } = require('node-3d-ready-raub');
-const { Scene, Body } = require('node-bullet-raub');
+'use strict';
+
+const core3d = require('3d-core-raub');
+const bullet3d = require('3d-bullet-raub');
+
+bullet3d(core3d);
+
+
+const { bullet, Screen, three, loop } = core3d;
+const { Scene, Body } = bullet;
 
 const { registerObserver } = require('../keyboard/keyboard');
 const { UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW } = require('../keyboard/keys_constants');

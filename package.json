@@ -1,24 +1,22 @@
 {
-  "name": "node-3d-bullet-demo",
+  "name": "3d-bullet-raub",
   "version": "0.0.1",
-  "description": "Test node-bullet validity",
+  "description": "Bullet physics plugin for Node.js 3D Core",
   "main": "index.js",
   "keywords": [
-    "demo",
-    "test",
     "3d",
     "threejs",
     "node",
-    "bullet"
+    "bullet",
+    "plugin"
   ],
-  "author": "Luis Blanco <raubtierxxx@gmail.com> (https://github.com/raub)",
+  "author": "Luis Blanco <raubtierxxx@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/raub/node-3d-ready.git"
+    "url": "https://github.com/raub/node-3d-bullet.git"
   },
   "dependencies": {
-    "node-3d-ready-raub": "0.3.3",
     "node-bullet-raub": "0.0.5"
   }
 }
