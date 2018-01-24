@@ -1,6 +1,6 @@
 {
   "name": "3d-bullet-raub",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Bullet physics plugin for Node.js 3D Core",
   "main": "index.js",
   "keywords": [
