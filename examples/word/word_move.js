@@ -12,7 +12,7 @@ const { Scene, Body } = bullet;
 const { registerObserver } = require('../keyboard/keyboard');
 const { UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW } = require('../keyboard/keys_constants');
 
-const loadTexture = fileName => new THREE.TextureLoader().load(`../textures/${fileName}`);
+const loadTexture = fileName => new THREE.TextureLoader().load(`textures/${fileName}`);
 
 //const spriteMap = loadTexture('texture_1.jpg');
 const spriteMap = loadTexture('texture_1.jpg');
@@ -76,7 +76,7 @@ registerObserver(
 	}
 );
 
-loop(screen);
+loop(() => screen.draw());
 
 const pgeo = new THREE.PlaneGeometry(100, 100, 4, 4);
 

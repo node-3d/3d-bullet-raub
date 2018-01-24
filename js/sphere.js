@@ -39,6 +39,6 @@ module.exports = core => {
 		}
 	}
 	
-	bullet.Cylinder = Cylinder;
+	bullet.Sphere = Sphere;
 	
 };

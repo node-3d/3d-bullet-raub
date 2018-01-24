@@ -1,7 +1,7 @@
 'use strict';
 
 const { scene, screen } = require('./word/word_move');
-const { Box, Sphere, Cylinder } = require('3d-core-raub');
+const { Box, Sphere, Cylinder } = require('3d-core-raub').bullet;
 const { getRandom } = require('./utils/utils');
 
 
