@@ -26,12 +26,12 @@ function game() {
 	screen.camera.position.y += dy;
 	screen.camera.position.z += dz;
 }
-setInterval(game, 50);
+setInterval(game, 2);
 
 registerObserver(
 	UP_ARROW,
 	() => {
-		dz = -1;
+		dz = -0.2;
 	},
 	() => {
 		dz = 0;
@@ -41,7 +41,7 @@ registerObserver(
 registerObserver(
 	DOWN_ARROW,
 	() => {
-		dz = 1;
+		dz = 0.2;
 	},
 	() => {
 		dz = 0;
@@ -51,7 +51,7 @@ registerObserver(
 registerObserver(
 	LEFT_ARROW,
 	() => {
-		dx = -1;
+		dx = -0.2;
 	},
 	() => {
 		dx = 0;
@@ -61,7 +61,7 @@ registerObserver(
 registerObserver(
 	RIGHT_ARROW,
 	() => {
-		dx = 1;
+		dx = 0.2;
 	},
 	() => {
 		dx = 0;

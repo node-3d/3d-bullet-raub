@@ -1,3 +1,4 @@
+//TODO: f => []
 class Observer {
 	constructor(keytype) {
 		document.addEventListener(keytype, event => this._onDocumentKeyDown(event), false);
