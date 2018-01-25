@@ -1,3 +1,3 @@
-# Bullet Demo
+# node-3d-bullet
 
-Demo example for [node-bullet](https://github.com/raub/node-bullet)
+Bullet physics plugin for Node.js 3D Core

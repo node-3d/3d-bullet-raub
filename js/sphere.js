@@ -2,6 +2,10 @@
 
 module.exports = core => {
 	
+	if (core.bullet.Sphere) {
+		return;
+	}
+	
 	const { three, bullet } = core;
 	const { Body } = bullet;
 	
