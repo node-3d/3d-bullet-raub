@@ -1,8 +1,58 @@
 'use strict';
 
 const { scene, screen } = require('./word/word_move');
-const { Box, Sphere, Cylinder } = require('3d-core-raub').bullet;
+const { three, bullet } = require('3d-core-raub');
+const { Box, Sphere, Cylinder } = bullet;
 const { getRandom } = require('./utils/utils');
+
+
+const raycaster = new THREE.Raycaster();
+const mouse = new three.Vector2();
+
+screen.on('mousedown', e => {
+	
+	mouse.x = ( e.x / screen.w ) * 2 - 1;
+	mouse.y = - ( e.y / screen.h ) * 2 + 1;
+	
+	raycaster.setFromCamera( mouse, screen.camera );
+	const ray = raycaster.ray;
+	
+	const start = ray.origin;
+	const end = ray.at(100000);
+	
+	const hit = scene.hit(start, end);
+	
+	console.log('all-shapes.js', hit.body, hit.body && hit.body.mass);
+	if (hit.body && hit.body.mass) {
+		
+		hit.body.vell = [0, 100, 0];
+	}
+	
+	
+	
+	// var ray = view.ray(scrX, scrY);
+	// var hr = envScene.hit(ray.start, ray.end);
+
+	// //var res111 = hr.pos+hr.norm;
+	// //console.log('actor at:', hr.obj, hr.hit, hr.pos, hr.norm, res111)
+
+	// var bpos;
+	// if(hr.hit)
+	// 	bpos = hr.pos.plus(hr.norm.times(sizePicker.result.length()*0.5));
+	// else
+	// 	bpos = view.camera.pos.plus(view.camera.dir.times(20));
+
+	// //console.log('entity', shapePicker.result, massPicker.result, sizePicker.result, bpos, colorPicker.result)
+	// var obj = result.createObject(null, {
+	// 	rgb: colorPicker.result,
+	// 	size: sizePicker.result,
+	// 	pos: bpos,
+	// 	m: massPicker.result,
+	// 	type: shapePicker.result,
+	// });
+
+	// spawned(obj);
+});
 
 
 function getRandomPosition() {
