@@ -20,38 +20,12 @@ screen.on('mousedown', e => {
 	const start = ray.origin;
 	const end = ray.at(100000);
 	
-	const hit = scene.hit(start, end);
+	const { body } = scene.hit(start, end);
 	
-	console.log('all-shapes.js', hit.body, hit.body && hit.body.mass);
-	if (hit.body && hit.body.mass) {
-		
-		hit.body.vell = [0, 100, 0];
+	if (body && body.mass) {
+		body.vell = [0, 100 * Math.random(), 0];
 	}
 	
-	
-	
-	// var ray = view.ray(scrX, scrY);
-	// var hr = envScene.hit(ray.start, ray.end);
-
-	// //var res111 = hr.pos+hr.norm;
-	// //console.log('actor at:', hr.obj, hr.hit, hr.pos, hr.norm, res111)
-
-	// var bpos;
-	// if(hr.hit)
-	// 	bpos = hr.pos.plus(hr.norm.times(sizePicker.result.length()*0.5));
-	// else
-	// 	bpos = view.camera.pos.plus(view.camera.dir.times(20));
-
-	// //console.log('entity', shapePicker.result, massPicker.result, sizePicker.result, bpos, colorPicker.result)
-	// var obj = result.createObject(null, {
-	// 	rgb: colorPicker.result,
-	// 	size: sizePicker.result,
-	// 	pos: bpos,
-	// 	m: massPicker.result,
-	// 	type: shapePicker.result,
-	// });
-
-	// spawned(obj);
 });
 
 
