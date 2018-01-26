@@ -1,9 +1,16 @@
 'use strict';
 
 const { scene, screen } = require('./word/word_move');
-const { three, bullet } = require('3d-core-raub');
+const { three, bullet, Image, doc } = require('3d-core-raub');
 const { Box, Sphere, Cylinder } = bullet;
 const { getRandom } = require('./utils/utils');
+
+
+const icon = new Image();
+icon.src = __dirname + '/bullet.ico';
+icon.on('load', () => doc.icon = icon);
+
+doc.title = 'All Shapes';
 
 
 const raycaster = new THREE.Raycaster();
