@@ -22,7 +22,7 @@
     "url": "https://github.com/raub/node-3d-bullet.git"
   },
   "dependencies": {
-    "3d-core-raub": "0.0.2",
-    "3d-bullet-raub": "0.0.5"
+    "3d-core-raub": "0.0.4",
+    "3d-bullet-raub": "0.0.6"
   }
 }
