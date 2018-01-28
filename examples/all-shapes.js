@@ -30,7 +30,12 @@ screen.on('mousedown', e => {
 	const { body } = scene.hit(start, end);
 	
 	if (body && body.mass) {
-		body.vell = [0, 100 * Math.random(), 0];
+		if (e.button === 0) {
+			body.vell = [0, 100 * Math.random(), 0];
+		} else if (e.button === 1) {
+			body.destroy();
+		}
+		
 	}
 	
 });

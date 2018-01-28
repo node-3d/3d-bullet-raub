@@ -1,6 +1,6 @@
 'use strict';
 
-const { Scene, Body, Joint, Trace } = require('node-bullet-raub');
+const { Scene, Body, Joint, Trace } = require('bullet-raub');
 
 
 module.exports = core => {
