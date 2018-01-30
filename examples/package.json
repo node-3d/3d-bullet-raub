@@ -23,6 +23,6 @@
   },
   "dependencies": {
     "3d-core-raub": "0.0.4",
-    "3d-bullet-raub": "0.0.7"
+    "3d-bullet-raub": "0.0.8"
   }
 }

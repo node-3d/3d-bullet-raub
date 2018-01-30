@@ -1,6 +1,6 @@
 {
   "name": "3d-bullet-raub",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Bullet physics plugin for Node.js 3D Core",
   "main": "index.js",
   "keywords": [
@@ -17,6 +17,6 @@
     "url": "https://github.com/raub/node-3d-bullet.git"
   },
   "dependencies": {
-    "bullet-raub": "0.0.2"
+    "bullet-raub": "0.0.3"
   }
 }
