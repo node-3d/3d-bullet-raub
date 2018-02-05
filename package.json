@@ -17,6 +17,6 @@
     "url": "https://github.com/raub/node-3d-bullet.git"
   },
   "dependencies": {
-    "bullet-raub": "0.0.3"
+    "bullet-raub": "0.0.6"
   }
 }
