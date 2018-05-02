@@ -8,6 +8,6 @@
 	},
 	"dependencies": {
 		"3d-bullet-raub": "file:../",
-		"3d-core-raub": "0.0.5"
+		"3d-core-raub": "0.0.9"
 	}
 }

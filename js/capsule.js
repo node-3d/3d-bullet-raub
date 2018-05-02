@@ -1,45 +1,67 @@
 'use strict';
 
+
 module.exports = core => {
 	
 	if (core.bullet.Capsule) {
 		return;
 	}
 	
-	const { three, bullet } = core;
-	const { Body } = bullet;
+	const { three, bullet, Vec3 } = core;
+	const { Shape } = bullet;
 	
-	class Capsule {
+	
+	class Capsule extends Shape {
+		
 		constructor(opts) {
-			const { screen, scene } = opts;
 			
-			const pos = opts.pos || { x: 0, y: 0, z: 0 };
-			const size = opts.size || { x: 1, y: 1, z: 1 };
-			const mass = opts.mass || 1;
+			super(opts);
 			
-			const geometry = new three.SphereGeometry(size.x, size.y, size.z);
-			const material = new three.MeshLambertMaterial({
-				color: Math.round(0xffffff * Math.random())
-				// map: new THREE.TextureLoader().load('TODO'),
-			});
-			const mesh = new three.Mesh(geometry, material);
-			screen.scene.add(mesh);
+			const radius = opts.radius || 1;
+			const height = opts.height || 1;
 			
-			mesh.position.set(pos.x, pos.y, pos.z);
+			this._size = new Vec3(opts.size || [radius * 2, height, radius * 2]);;
+			this._body.size = this._size;
 			
-			const body = new Body({ scene: opts.scene });
+			this._segments = opts.segments || 32;
+			this._body.type = 'caps';
 			
-			body.type = 'caps';
-			body.pos = pos;
-			body.size = { x: opts.size.x + 1, y: 4, z: 5 };
-			body.mass = mass;
-			
-			body.on('update', ({ pos, quat }) => {
-				mesh.position.set(pos.x, pos.y, pos.z);
-				mesh.quaternion.set(quat.x, quat.y, quat.z, quat.w);
-			});
 		}
+		
+		
+		_geo(opts) {
+			
+			const radius   = opts.radius || 1;
+			const height   = opts.height || 1;
+			const size     = new Vec3(opts.size || [radius * 2, height, radius * 2]);
+			const segments = opts.segments || 32;
+			
+			const cylinder = new three.CylinderGeometry(size.x * 0.5 , size.z * 0.5, size.y, segments);
+			const sphere1  = new three.SphereGeometry(size.x * 0.5, segments, segments);
+			const sphere2  = new three.SphereGeometry(size.x * 0.5, segments, segments);
+			
+			const cylinderMesh = new THREE.Mesh(cylinder);
+			const sphereMesh1 = new THREE.Mesh(sphere1);
+			const sphereMesh2 = new THREE.Mesh(sphere2);
+			
+			sphereMesh1.position.y = size.y / 2;
+			sphereMesh2.position.y = -size.y / 2;
+			
+			const singleGeometry = new THREE.Geometry();
+			
+			cylinderMesh.updateMatrix();
+			sphereMesh1.updateMatrix();
+			sphereMesh2.updateMatrix();
+			singleGeometry.merge(cylinderMesh.geometry, cylinderMesh.matrix);
+			singleGeometry.merge(sphereMesh1.geometry, sphereMesh1.matrix);
+			singleGeometry.merge(sphereMesh2.geometry, sphereMesh2.matrix);
+			
+			return singleGeometry;
+			
+		}
+		
 	}
+	
 	
 	bullet.Capsule = Capsule;
 	

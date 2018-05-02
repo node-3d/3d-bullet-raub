@@ -1,48 +1,25 @@
 'use strict';
 
+
 module.exports = core => {
 	
 	if (core.bullet.Box) {
 		return;
 	}
 	
-	const { three, bullet } = core;
-	const { Body } = bullet;
+	const { three, bullet, Vec3 } = core;
+	const { Shape } = bullet;
 	
-	class Box {
+	
+	class Box extends Shape {
 		
-		constructor(opts) {
-			
-			const { screen, scene } = opts;
-			
-			const pos  = opts.pos  || { x: 0, y: 0, z: 0 };
-			const size = opts.size || { x: 1, y: 1, z: 1 };
-			const mass = opts.mass || 1;
-			
-			const geometry = new three.BoxGeometry(size.x, size.y, size.z);
-			const material = new three.MeshLambertMaterial({
-				color: Math.round(0xFFFFFF * Math.random()),
-				// map: new THREE.TextureLoader().load('TODO'),
-			});
-			const mesh = new three.Mesh(geometry, material);
-			screen.scene.add(mesh);
-			
-			mesh.position.set(pos.x, pos.y, pos.z);
-			
-			const body = new Body({ scene: opts.scene });
-			
-			body.pos = pos;
-			body.size = size;
-			body.mass = mass;
-			
-			body.on('update', ({ pos, quat }) => {
-				mesh.position.set(pos.x, pos.y, pos.z);
-				mesh.quaternion.set(quat.x, quat.y, quat.z, quat.w);
-			});
-			
+		_geo(opts) {
+			const size = new Vec3(opts.size || [1, 1, 1]);
+			return new three.BoxGeometry(size[0], size[1], size[2]);
 		}
 		
 	}
+	
 	
 	bullet.Box = Box;
 	

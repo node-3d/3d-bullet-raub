@@ -3,20 +3,19 @@
 const core3d = require('3d-core-raub');
 const bullet3d = require('3d-bullet-raub');
 
-bullet3d(core3d);
 
+bullet3d(core3d);
 
 const { bullet, Screen, three, loop } = core3d;
 const { Scene, Body } = bullet;
 
-const { registerObserver } = require('../keyboard/keyboard');
-const { UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW } = require('../keyboard/keys_constants');
+const { registerObserver } = require('./keyboard');
+const { UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW } = require('./keys');
 
 const loadTexture = fileName => new THREE.TextureLoader().load(`textures/${fileName}`);
 
-//const spriteMap = loadTexture('texture_1.jpg');
 const spriteMap = loadTexture('texture_1.jpg');
-// const spriteMap = loadTexture('texture_3.jpg');
+
 //-----------------------------------------------------------------------------------
 
 const screen = new Screen();
@@ -81,6 +80,7 @@ loop(() => screen.draw());
 const pgeo = new THREE.PlaneGeometry(100, 100, 4, 4);
 
 //-----------------------------------------------------------------------------------
+
 spriteMap.wrapS = THREE.RepeatWrapping;
 spriteMap.wrapT = THREE.RepeatWrapping;
 //spriteMap.anisotropy = 1;
@@ -89,20 +89,25 @@ spriteMap.repeat.set(8, 8);
 //spriteMap.generateMipmaps = true;
 //spriteMap.needsUpdate = true;
 var spriteMaterial = new THREE.MeshBasicMaterial({ map: spriteMap });
+
 //-----------------------------------------------------------------------------------
+
 const pmesh = new THREE.Mesh(pgeo, spriteMaterial);
 screen.scene.add(pmesh);
 pmesh.rotation.x = -Math.PI * 0.5;
 //-----
 
+
 const light = new three.AmbientLight(0x666666); // soft white light
 screen.scene.add(light);
+
 
 const pointLight = new three.PointLight(0xffffff, 1, 100000);
 screen.scene.add(pointLight);
 pointLight.position.x = 200;
 pointLight.position.y = 2000;
 pointLight.position.z = 500;
+
 
 const scene = new Scene();
 const _draw = screen.draw.bind(screen);
@@ -111,8 +116,9 @@ screen.draw = () => {
 	_draw();
 };
 
+
 const plane = new Body({ scene });
 plane.type = 'plane';
 
-module.exports.screen = screen;
-module.exports.scene = scene;
+
+module.exports = { screen, scene };

@@ -6,42 +6,39 @@ module.exports = core => {
 		return;
 	}
 	
-	const { three, bullet } = core;
-	const { Body } = bullet;
+	const { three, bullet, Vec3 } = core;
+	const { Shape } = bullet;
 	
-	class Sphere {
+	
+	class Sphere extends Shape {
+		
 		constructor(opts) {
-			const { screen, scene } = opts;
 			
-			const pos = opts.pos || { x: 0, y: 0, z: 0 };
-			const { radius } = opts.size || { radius: 1 };
-			const mass = opts.mass || 1;
+			super(opts);
+			
+			const radius = opts.radius || 1;
+			
+			this._size = new Vec3(opts.size || [radius * 2, radius * 2, radius * 2]);
+			this._body.size = this._size;
+			
+			this._segments = opts.segments || 32;
+			this._body.type = 'ball';
+			
+		}
+		
+		
+		_geo(opts) {
+			
+			const radius = opts.radius || 1;
+			const size = new Vec3(opts.size || [radius * 2, radius * 2, radius * 2]);
 			const segments = opts.segments || 32;
 			
-			const geometry = new three.SphereGeometry(radius, segments, segments);
-			const material = new three.MeshLambertMaterial({
-				color: Math.round(0xffffff * Math.random())
-				// map: new THREE.TextureLoader().load('TODO'),
-			});
-			const mesh = new three.Mesh(geometry, material);
-			screen.scene.add(mesh);
+			return new three.SphereGeometry(size.x * 0.5, segments, segments);
 			
-			mesh.position.set(pos.x, pos.y, pos.z);
-			
-			const body = new Body({ scene: opts.scene });
-			
-			body.type = 'ball';
-			body.pos = pos;
-			const diameter = radius * 2;
-			body.size = { x: diameter, y: diameter, z: diameter };
-			body.mass = mass;
-			
-			body.on('update', ({ pos, quat }) => {
-				mesh.position.set(pos.x, pos.y, pos.z);
-				mesh.quaternion.set(quat.x, quat.y, quat.z, quat.w);
-			});
 		}
+		
 	}
+	
 	
 	bullet.Sphere = Sphere;
 	

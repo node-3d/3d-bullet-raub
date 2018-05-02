@@ -3,7 +3,7 @@ class Observer {
 	constructor(keytype) {
 		document.addEventListener(keytype, event => this._onDocumentKeyDown(event), false);
 		this.observers = new Map();
-		console.log('constructor', keytype);
+		// console.log('constructor', keytype);
 	}
 
 	registerObserver(keyCode, f) {
