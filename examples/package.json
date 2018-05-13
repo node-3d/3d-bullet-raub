@@ -2,12 +2,12 @@
 	"name": "example",
 	"version": "0.0.0",
 	"private": true,
-	"main": "all-shapes.js",
+	"main": "index.js",
 	"scripts": {
 		"preinstall": "cd .. && npm i"
 	},
 	"dependencies": {
 		"3d-bullet-raub": "file:../",
-		"3d-core-raub": "0.0.9"
+		"3d-core-raub": "0.0.11"
 	}
 }
