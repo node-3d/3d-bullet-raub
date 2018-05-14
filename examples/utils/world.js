@@ -12,7 +12,7 @@ const { Scene, Body } = bullet;
 const { registerObserver } = require('./keyboard');
 const { UP_ARROW, DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW } = require('./keys');
 
-const loadTexture = fileName => new THREE.TextureLoader().load(`textures/${fileName}`);
+const loadTexture = fileName => new three.TextureLoader().load(`textures/${fileName}`);
 
 const spriteMap = loadTexture('texture_1.jpg');
 
@@ -77,48 +77,48 @@ registerObserver(
 
 loop(() => screen.draw());
 
-const pgeo = new THREE.PlaneGeometry(100, 100, 4, 4);
+const pgeo = new three.PlaneGeometry(100, 100, 4, 4);
 
 //-----------------------------------------------------------------------------------
 
-spriteMap.wrapS = THREE.RepeatWrapping;
-spriteMap.wrapT = THREE.RepeatWrapping;
+spriteMap.wrapS = three.RepeatWrapping;
+spriteMap.wrapT = three.RepeatWrapping;
 //spriteMap.anisotropy = 1;
 spriteMap.repeat.set(8, 8);
 //spriteMap.repeat.set(32, 32);
 //spriteMap.generateMipmaps = true;
 //spriteMap.needsUpdate = true;
-var spriteMaterial = new THREE.MeshBasicMaterial({ map: spriteMap });
+var spriteMaterial = new three.MeshBasicMaterial({ map: spriteMap });
 
 //-----------------------------------------------------------------------------------
 
-const pmesh = new THREE.Mesh(pgeo, spriteMaterial);
+const pmesh = new three.Mesh(pgeo, spriteMaterial);
 screen.scene.add(pmesh);
-// pmesh.rotation.x = -Math.PI * 0.5;
+pmesh.rotation.x = -Math.PI * 0.5;
 //-----
 
 
-// const light = new three.AmbientLight(0x666666); // soft white light
-// screen.scene.add(light);
+const light = new three.AmbientLight(0x666666); // soft white light
+screen.scene.add(light);
 
 
-// const pointLight = new three.PointLight(0xffffff, 1, 100000);
-// screen.scene.add(pointLight);
-// pointLight.position.x = 200;
-// pointLight.position.y = 2000;
-// pointLight.position.z = 500;
+const pointLight = new three.PointLight(0xffffff, 1, 100000);
+screen.scene.add(pointLight);
+pointLight.position.x = 200;
+pointLight.position.y = 2000;
+pointLight.position.z = 500;
 
 
-// const scene = new Scene();
-// const _draw = screen.draw.bind(screen);
-// screen.draw = () => {
-// 	scene.update();
-// 	_draw();
-// };
+const scene = new Scene();
+const _draw = screen.draw.bind(screen);
+screen.draw = () => {
+	scene.update();
+	_draw();
+};
 
 
-// const plane = new Body({ scene });
-// plane.type = 'plane';
+const plane = new Body({ scene });
+plane.type = 'plane';
+screen.plane = plane;
 
-
-// module.exports = { screen, scene };
+module.exports = { screen, scene };
