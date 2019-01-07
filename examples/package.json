@@ -3,11 +3,8 @@
 	"version": "0.0.0",
 	"private": true,
 	"main": "index.js",
-	"scripts": {
-		"preinstall": "cd .. && npm i"
-	},
 	"dependencies": {
-		"3d-bullet-raub": "file:../",
-		"3d-core-raub": "https://github.com/node-3d/3d-core-raub"
+		"3d-bullet-raub": "https://github.com/node-3d/3d-bullet-raub.git",
+		"3d-core-raub": "https://github.com/node-3d/3d-core-raub.git"
 	}
 }
