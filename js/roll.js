@@ -20,7 +20,7 @@ module.exports = core => {
 			const radius = opts.radius || 1;
 			const height = opts.height || 1;
 			
-			this._size = new Vec3(opts.size || [radius * 2, height, radius * 2]);;
+			this._size = new Vec3(opts.size || [radius * 2, height, radius * 2]);
 			this._body.size = this._size;
 			
 			this._segments = opts.segments || 32;

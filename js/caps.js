@@ -40,14 +40,14 @@ module.exports = core => {
 			const sphere1  = new three.SphereGeometry(size.x * 0.5, segments, segments);
 			const sphere2  = new three.SphereGeometry(size.x * 0.5, segments, segments);
 			
-			const cylinderMesh = new THREE.Mesh(cylinder);
-			const sphereMesh1 = new THREE.Mesh(sphere1);
-			const sphereMesh2 = new THREE.Mesh(sphere2);
+			const cylinderMesh = new three.Mesh(cylinder);
+			const sphereMesh1 = new three.Mesh(sphere1);
+			const sphereMesh2 = new three.Mesh(sphere2);
 			
 			sphereMesh1.position.y = size.y / 2;
 			sphereMesh2.position.y = -size.y / 2;
 			
-			const singleGeometry = new THREE.Geometry();
+			const singleGeometry = new three.Geometry();
 			
 			cylinderMesh.updateMatrix();
 			sphereMesh1.updateMatrix();
