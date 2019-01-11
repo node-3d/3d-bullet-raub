@@ -41,13 +41,13 @@ let dz = 0;
 
 
 const F_KEY = 70;
-const UP_ARROW = 265;
-const DOWN_ARROW = 264;
-const LEFT_ARROW = 263;
-const RIGHT_ARROW = 262;
+const UP_ARROW = 87;
+const DOWN_ARROW = 83;
+const LEFT_ARROW = 65;
+const RIGHT_ARROW = 68;
 
 screen.on('keydown', e => {
-	console.log('index.js', 'e', e.keyCode);
+	
 	if (e.keyCode === F_KEY) {
 		if (e.ctrlKey && e.shiftKey) {
 			screen.mode = 'windowed';
@@ -63,9 +63,9 @@ screen.on('keydown', e => {
 	} else if (e.keyCode === DOWN_ARROW) {
 		dz = 0.2;
 	} else if (e.keyCode === LEFT_ARROW) {
-		dz = -0.2;
+		dx = -0.2;
 	} else if (e.keyCode === RIGHT_ARROW) {
-		dz = 0.2;
+		dx = 0.2;
 	}
 	
 });
@@ -75,7 +75,7 @@ screen.on('keyup', e => {
 	if (e.keyCode === UP_ARROW || e.keyCode === DOWN_ARROW) {
 		dz = 0;
 	} else if (e.keyCode === LEFT_ARROW || e.keyCode === RIGHT_ARROW) {
-		dz = 0;
+		dx = 0;
 	}
 	
 });
