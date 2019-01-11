@@ -16,9 +16,9 @@ module.exports = core => {
 		constructor(opts) {
 			
 			this._screen = opts.screen;
-			this._three  = this._screen.three;
+			this._three = this._screen.three;
 			
-			this._pos  = new Vec3(opts.pos || [0, 0, 0]);
+			this._pos = new Vec3(opts.pos || [0, 0, 0]);
 			this._size = new Vec3(opts.size || [1, 1, 1]);
 			this._mass = opts.mass || 1;
 			
@@ -61,7 +61,7 @@ module.exports = core => {
 		
 		
 		get screen() { return this._screen; }
-		set screen(v) { v = v; } // dummy setter, for convinience of passing Drawable as opts
+		set screen(v) { v = null; } // dummy setter, for convinience of passing Drawable as opts
 		
 		
 		get mat() { return this._mesh.material; }
@@ -118,7 +118,7 @@ module.exports = core => {
 		}
 		
 		
-		_mat(opts) {
+		_mat() {
 			return new this.three.MeshLambertMaterial({
 				transparent: false,
 				side       : this.three.DoubleSide,

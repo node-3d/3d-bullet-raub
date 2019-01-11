@@ -3,7 +3,7 @@
 
 module.exports = core => {
 	
-	if (core.bullet.Cylinder) {
+	if (core.bullet.Roll) {
 		return;
 	}
 	
@@ -11,7 +11,7 @@ module.exports = core => {
 	const { Shape } = bullet;
 	
 	
-	class Cylinder extends Shape {
+	class Roll extends Shape {
 		
 		constructor(opts) {
 			
@@ -43,6 +43,6 @@ module.exports = core => {
 	}
 	
 	
-	bullet.Cylinder = Cylinder;
+	bullet.Roll = Roll;
 	
 };

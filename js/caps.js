@@ -3,7 +3,7 @@
 
 module.exports = core => {
 	
-	if (core.bullet.Capsule) {
+	if (core.bullet.Caps) {
 		return;
 	}
 	
@@ -11,7 +11,7 @@ module.exports = core => {
 	const { Shape } = bullet;
 	
 	
-	class Capsule extends Shape {
+	class Caps extends Shape {
 		
 		constructor(opts) {
 			
@@ -63,6 +63,6 @@ module.exports = core => {
 	}
 	
 	
-	bullet.Capsule = Capsule;
+	bullet.Caps = Caps;
 	
 };

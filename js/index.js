@@ -10,8 +10,8 @@ module.exports = core => {
 	require('./shape')(core);
 	
 	require('./box')(core);
-	require('./cylinder')(core);
-	require('./sphere')(core);
-	require('./capsule')(core);
+	require('./roll')(core);
+	require('./ball')(core);
+	require('./caps')(core);
 	
 };

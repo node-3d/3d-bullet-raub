@@ -2,7 +2,7 @@
 
 module.exports = core => {
 	
-	if (core.bullet.Sphere) {
+	if (core.bullet.Ball) {
 		return;
 	}
 	
@@ -10,7 +10,7 @@ module.exports = core => {
 	const { Shape } = bullet;
 	
 	
-	class Sphere extends Shape {
+	class Ball extends Shape {
 		
 		constructor(opts) {
 			
@@ -40,6 +40,6 @@ module.exports = core => {
 	}
 	
 	
-	bullet.Sphere = Sphere;
+	bullet.Ball = Ball;
 	
 };
