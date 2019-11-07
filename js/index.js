@@ -1,11 +1,11 @@
 'use strict';
 
-const { Scene, Body, Joint, Trace } = require('bullet-raub');
+const { Scene, Body, Joint } = require('bullet-raub');
 
 
 module.exports = core => {
 	
-	Object.assign(core.bullet, { Scene, Body, Joint, Trace });
+	Object.assign(core.bullet, { Scene, Body, Joint });
 	
 	require('./shape')(core);
 	

@@ -1,14 +1,11 @@
 'use strict';
 
-const core3d = require('3d-core-raub');
-const bullet3d = require('3d-bullet-raub');
-
-bullet3d(core3d);
+const init = require('3d-core-raub');
+const bullet3d = require('..');
 
 
-const { three, bullet, Image, doc, Screen, loop } = core3d;
+const { three, bullet, Image, doc, Screen, loop } = init({ plugins: [bullet3d] });
 const { Box, Ball, Roll, Caps, Scene, Body } = bullet;
-
 
 const icon = new Image();
 icon.src = __dirname + '/bullet.ico';
@@ -142,18 +139,18 @@ screen.on('mousedown', e => {
 	mouse.x = ( e.x / screen.w ) * 2 - 1;
 	mouse.y = -( e.y / screen.h ) * 2 + 1;
 	
-	raycaster.setFromCamera( mouse, screen.camera );
+	raycaster.setFromCamera(mouse, screen.camera);
 	const ray = raycaster.ray;
 	
 	const start = ray.origin;
-	const end = ray.at(100000);
+	const end = ray.at(100000, new three.Vector3());
 	
 	const { body } = scene.hit(start, end);
 	
 	if (body && body.mass) {
-		if (e.button === 0) {
+		if (e.button === 0) { // left
 			body.vell = [0, 100 * Math.random(), 0];
-		} else if (e.button === 1) {
+		} else if (e.button === 2) { // right
 			body.destroy();
 		}
 	}
@@ -195,15 +192,16 @@ const createCapsule = () => new Caps({
 	height: getRandom(5, 10),
 });
 
+const bodies = [];
 
 for (let i = 0; i < 40; i++) {
 	
-	createBox();
+	bodies.push(createBox());
 	
-	createCylinder();
+	bodies.push(createCylinder());
 	
-	createCapsule();
+	bodies.push(createCapsule());
 	
-	createSphere();
+	bodies.push(createSphere());
 	
 }

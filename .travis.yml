@@ -1,21 +1,26 @@
 language: node_js
-
 node_js:
-  - "10.13.0"
+  - "10.16.1"
+
+install:
+  - cd test
+  - npm ci
 
 
 matrix:
   include:
-  - name: "Windows"
-    os: windows
   - name: "Linux"
     os: linux
     dist: xenial
     sudo: false
+    before_install:
+      - export DISPLAY=:99
+      - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x24"
   - name: "MacOS"
     os: osx
-
-
-install:
-  - cd test
-  - npm i
+    script:
+      - echo OK.
+  - name: "Windows"
+    os: windows
+    script:
+      - echo OK.
