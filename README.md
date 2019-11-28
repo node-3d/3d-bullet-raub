@@ -7,7 +7,7 @@ This is a part of [Node3D](https://github.com/node-3d) project.
 [![Build Status](https://api.travis-ci.com/node-3d/3d-bullet-raub.svg?branch=master)](https://travis-ci.com/node-3d/3d-bullet-raub)
 [![CodeFactor](https://www.codefactor.io/repository/github/node-3d/3d-bullet-raub/badge)](https://www.codefactor.io/repository/github/node-3d/3d-bullet-raub)
 
-> npm i -s 3d-bullet-raub
+> npm i 3d-bullet-raub
 
 
 ## Synopsis
@@ -29,14 +29,10 @@ object this function extends with `bullet` property. Now this property holds
 whatever this plugin offers.
 
 ```
-const core3d = require('3d-core-raub');
+const init = require('3d-core-raub');
 const bullet3d = require('3d-bullet-raub');
-
-bullet3d(core3d);
-
-const { three, bullet, Image, doc } = core3d;
-const { Box, Sphere, Cylinder, Capsule } = bullet;
-
+const { three, bullet, Image, doc, Screen, loop } = init({ plugins: [bullet3d] });
+const { Box, Ball, Roll, Caps, Scene, Body } = bullet;
 // ...
 ```
 
@@ -49,8 +45,10 @@ See docs of [bullet-raub](https://github.com/node-3d/bullet-raub). This plugin
 reexports those as is.
 
 Additionally there are few classes specific for this plugin:
-* Shape - the base class to connect physical and visual entities.
-* Box - 'box' shape.
-* Cylinder - 'roll' shape.
-* Sphere - 'ball' shape.
-* Capsule - 'caps' shape.
+* `Shape` - the base class to connect physical and visual entities.
+	Automatically updates the position of the mesh according to its
+	physical body. Extends [Drawable](https://github.com/node-3d/3d-core-raub/blob/master/js/objects/drawable.js).
+* `Box` - box shape preset.
+* `Roll` - cylinder shape preset.
+* `Ball` - sphere shape preset.
+* `Caps` - capsusle shape preset.

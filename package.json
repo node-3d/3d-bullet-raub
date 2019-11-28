@@ -20,14 +20,14 @@
 		"README.md"
 	],
 	"engines": {
-		"node": ">=10.16.1",
-		"npm": ">=6.9.0"
+		"node": ">=12.13.0",
+		"npm": ">=6.12.0"
 	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/node-3d/3d-bullet-raub.git"
 	},
 	"dependencies": {
-		"bullet-raub": "https://github.com/node-3d/bullet-raub.git"
+		"bullet-raub": "2.0.0"
 	}
 }
