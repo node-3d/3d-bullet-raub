@@ -1,7 +1,7 @@
 {
 	"author": "Luis Blanco <luisblanco1337@gmail.com>",
 	"name": "3d-bullet-raub",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Bullet Physics plugin for Node.js 3D Core",
 	"license": "MIT",
 	"main": "index.js",
@@ -28,6 +28,6 @@
 		"url": "https://github.com/node-3d/3d-bullet-raub.git"
 	},
 	"dependencies": {
-		"bullet-raub": "2.0.0"
+		"bullet-raub": "2.0.1"
 	}
 }
