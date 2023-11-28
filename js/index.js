@@ -1,17 +1,31 @@
 'use strict';
 
-const { Scene, Body, Joint } = require('bullet-raub');
+const bullet = require('bullet-raub');
 
 
-module.exports = core => {
-	
-	Object.assign(core.bullet, { Scene, Body, Joint });
-	
-	require('./shape')(core);
-	
-	require('./box')(core);
-	require('./roll')(core);
-	require('./ball')(core);
-	require('./caps')(core);
-	
+module.exports = () => {
+	return {
+		bullet,
+	};
 };
+
+const _init = () => {
+	const { Scene } = bullet;
+	const scene = new Scene();
+	const Shape = require('./shape')({ scene });
+	
+	return {
+		bullet, scene, Shape,
+	};
+};
+
+let inited = null;
+const init = () => {
+	if (inited) {
+		return inited;
+	}
+	inited = _init();
+	return inited;
+};
+
+module.exports = { init };

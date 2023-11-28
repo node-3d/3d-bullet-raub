@@ -1,7 +1,7 @@
 {
 	"author": "Luis Blanco <luisblanco1337@gmail.com>",
 	"name": "3d-bullet-raub",
-	"version": "2.0.1",
+	"version": "3.0.0",
 	"description": "Bullet Physics plugin for Node.js 3D Core",
 	"license": "MIT",
 	"main": "index.js",
@@ -20,14 +20,27 @@
 		"README.md"
 	],
 	"engines": {
-		"node": ">=12.13.0",
-		"npm": ">=6.12.0"
+		"node": ">=18.16.0",
+		"npm": ">=9.5.1"
+	},
+	"scripts": {
+		"eslint": "eslint .",
+		"test": "node --test"
 	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/node-3d/3d-bullet-raub.git"
 	},
 	"dependencies": {
-		"bullet-raub": "2.0.1"
+		"bullet-raub": "^3.0.1"
+	},
+	"devDependencies": {
+		"3d-core-raub": "^4.2.0",
+		"@types/node": "^20.8.3",
+		"@types/three": "^0.158.1",
+		"eslint-plugin-node": "^11.1.0",
+		"eslint": "^8.51.0",
+		"three": "^0.158.0",
+		"typescript": "^5.2.2"
 	}
 }

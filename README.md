@@ -2,53 +2,39 @@
 
 This is a part of [Node3D](https://github.com/node-3d) project.
 
-[![NPM](https://nodei.co/npm/3d-bullet-raub.png?compact=true)](https://www.npmjs.com/package/3d-bullet-raub)
+[![NPM](https://badge.fury.io/js/3d-bullet-raub.svg)](https://badge.fury.io/js/3d-bullet-raub)
+[![ESLint](https://github.com/node-3d/3d-bullet-raub/actions/workflows/eslint.yml/badge.svg)](https://github.com/node-3d/3d-bullet-raub/actions/workflows/eslint.yml)
+[![Test](https://github.com/node-3d/3d-bullet-raub/actions/workflows/test.yml/badge.svg)](https://github.com/node-3d/3d-bullet-raub/actions/workflows/test.yml)
 
-[![Build Status](https://api.travis-ci.com/node-3d/3d-bullet-raub.svg?branch=master)](https://travis-ci.com/node-3d/3d-bullet-raub)
-[![CodeFactor](https://www.codefactor.io/repository/github/node-3d/3d-bullet-raub/badge)](https://www.codefactor.io/repository/github/node-3d/3d-bullet-raub)
-
-> npm i 3d-bullet-raub
-
-
-## Synopsis
+```console
+npm i -s 3d-bullet-raub
+```
 
 Bullet physics plugin for Node.js 3D Core
 
 ![Example](examples/screenshot.jpg)
 
-> Note: compilation tools must be in place on your system.
-For Windows, use **ADMIN PRIVELEGED** command line:
-\`npm i -g windows-build-tools\`.
-Also **Windows** needs **vcredist 2013** to be installed.
 
+```typescript
+import * as three from 'three';
+import { init, addThreeHelpers } from '3d-core-raub';
+import { init as initBullet } from '3d-qml-raub';
 
-## Usage
+// Standard Node3D init
+const {
+	doc, Image: Img, gl,
+} = init({
+	isGles3: true, isWebGL2: true, autoEsc: true,
+});
+addThreeHelpers(three, gl);
 
-As any Node3D plugin, `3d-bullet-raub` exports a single function. Given a Node3D
-object this function extends with `bullet` property. Now this property holds
-whatever this plugin offers.
-
+// Initialize Bullet and fetch the helpers
+const {
+	Box, Ball, Roll, Caps, Scene, Body, bullet,
+} = initBullet({
+	three,
+});
 ```
-const init = require('3d-core-raub');
-const bullet3d = require('3d-bullet-raub');
-const { three, bullet, Image, doc, Screen, loop } = init({ plugins: [bullet3d] });
-const { Box, Ball, Roll, Caps, Scene, Body } = bullet;
-// ...
-```
 
-See examples for quick start.
-
-
-## Exports
-
-See docs of [bullet-raub](https://github.com/node-3d/bullet-raub). This plugin
-reexports those as is.
-
-Additionally there are few classes specific for this plugin:
-* `Shape` - the base class to connect physical and visual entities.
-	Automatically updates the position of the mesh according to its
-	physical body. Extends [Drawable](https://github.com/node-3d/3d-core-raub/blob/master/js/objects/drawable.js).
-* `Box` - box shape preset.
-* `Roll` - cylinder shape preset.
-* `Ball` - sphere shape preset.
-* `Caps` - capsusle shape preset.
+* See [TypeScript declarations](/index.d.ts) for more details.
+* See [example](/examples/main.ts) for a complete setup.
