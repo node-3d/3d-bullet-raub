@@ -14,25 +14,44 @@ Bullet physics plugin for Node.js 3D Core
 
 ![Example](examples/screenshot.jpg)
 
+This plugin provides the `Shape` class to simplify the common use cases with Three.js and
+Bullet Physics addon.
 
-```typescript
+ * Can display debug shapes.
+ * Updates mesh pose from physics engine.
+ * Removes meshes when the body is destroyed.
+ * `Shape` extends `Body` and works with `scene.hit()/scene.trace()`.
+
+```ts
 import * as three from 'three';
 import { init, addThreeHelpers } from '3d-core-raub';
-import { init as initBullet } from '3d-qml-raub';
+import { init as initBullet } from '3d-bullet-raub';
 
-// Standard Node3D init
-const {
-	doc, Image: Img, gl,
-} = init({
-	isGles3: true, isWebGL2: true, autoEsc: true,
-});
+const { gl, loop, Screen } = init();
 addThreeHelpers(three, gl);
+const { scene, Shape } = initBullet({ three });
 
-// Initialize Bullet and fetch the helpers
-const {
-	Box, Ball, Roll, Caps, Scene, Body, bullet,
-} = initBullet({
-	three,
+const screen = new Screen({ three });
+
+const plane = new Shape({
+	sceneThree: screen.scene,
+	color: 0xface8d,
+	type: 'plane',
+	debug: 'solid',
+});
+
+const box = new Shape({
+	sceneThree: screen.scene,
+	pos: [0, 10, 0], // use { xyz } or [xyz]
+	mass: 3,
+	debug: 'solid',
+	color: 0xbeefed,
+	size: { x: 3, y: 2, z: 1 }, // use { xyz } or [xyz]
+});
+
+loop(() => {
+	scene.update();
+	screen.draw();
 });
 ```
 

@@ -3,16 +3,12 @@
 const bullet = require('bullet-raub');
 
 
-module.exports = () => {
-	return {
-		bullet,
-	};
-};
-
-const _init = () => {
+const _init = (opts = {}) => {
+	const { three } = opts;
 	const { Scene } = bullet;
 	const scene = new Scene();
-	const Shape = require('./shape')({ scene });
+	
+	const Shape = require('./shape')({ scene, three });
 	
 	return {
 		bullet, scene, Shape,
@@ -20,11 +16,11 @@ const _init = () => {
 };
 
 let inited = null;
-const init = () => {
+const init = (opts) => {
 	if (inited) {
 		return inited;
 	}
-	inited = _init();
+	inited = _init(opts);
 	return inited;
 };
 

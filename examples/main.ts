@@ -1,57 +1,220 @@
-'use strict';
-
-import { dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import * as three from 'three';
 import { init, addThreeHelpers } from '3d-core-raub';
 import { init as initBullet } from '3d-bullet-raub';
+import type { TOptsShape, TShapeInstance } from '3d-bullet-raub';
+import type { TVec3Either } from 'bullet-raub';
 
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const {
-	doc, Image: Img, gl, loop,
+	doc, Image: Img, gl, loop, Screen,
 } = init({
 	isGles3: true,
 	isWebGL2: true,
 	autoEsc: true,
 	autoFullscreen: true,
+	vsync: true,
+	msaa: 2,
 });
 
 addThreeHelpers(three, gl);
 
-const { Shape } = initBullet();
+const { scene, Shape } = initBullet({ three });
 
-const icon = new Img(__dirname + '/bullet.png');
+const icon = new Img('bullet.png');
 icon.on('load', () => { doc.icon = (icon as unknown as typeof doc.icon); });
 doc.title = 'Bullet';
 
+const screen = new Screen({ three, fov: 60, near: 1, far: 200 });
 
-const scene = new three.Scene();
-scene.fog = new three.FogExp2( 0x000000, 0.0007 );
+screen.camera.position.z = 40;
+screen.camera.position.y = 10;
+screen.camera.position.x = 10;
+screen.camera.up = new three.Vector3(0, 1, 0);
+screen.camera.lookAt(new three.Vector3(0, 0, 0));
 
-const cameraPerspective = new three.PerspectiveCamera(90, doc.w / doc.h, 1, 2000);
-cameraPerspective.position.z = 1000;
+screen.renderer.shadowMap.enabled = true;
+screen.scene.background = new three.Color(0x87ceeb);
+screen.scene.fog = new three.FogExp2(0x87ceeb, 0.007);
 
-const renderer = new three.WebGLRenderer();
-renderer.setPixelRatio(doc.devicePixelRatio);
-renderer.setSize(doc.w, doc.h);
+const getRandom = (min: number, max: number): number => Math.random() * (max - min) + min;
 
-doc.on('resize', () => {
-	cameraPerspective.aspect = doc.w / doc.h;
-	cameraPerspective.updateProjectionMatrix();
-	renderer.setSize(doc.w, doc.h);
+const getRandomPosition = (): TVec3Either => ({
+	x: getRandom(-10, 10),
+	y: getRandom(20, 2000),
+	z: getRandom(-10, 10)
+});
+
+let dx = 0;
+let dy = 0;
+let dz = 0;
+
+
+const F_KEY = 70;
+const UP_ARROW = 87;
+const DOWN_ARROW = 83;
+const LEFT_ARROW = 65;
+const RIGHT_ARROW = 68;
+
+screen.on('keydown', e => {
+	if (e.keyCode === F_KEY) {
+		if (e.ctrlKey && e.shiftKey) {
+			screen.mode = 'windowed';
+		} else if (e.ctrlKey && e.altKey) {
+			screen.mode = 'fullscreen';
+		} else if (e.ctrlKey) {
+			screen.mode = 'borderless';
+		}
+	}
+	
+	if (e.keyCode === UP_ARROW) {
+		dz = -0.2;
+	} else if (e.keyCode === DOWN_ARROW) {
+		dz = 0.2;
+	} else if (e.keyCode === LEFT_ARROW) {
+		dx = -0.2;
+	} else if (e.keyCode === RIGHT_ARROW) {
+		dx = 0.2;
+	}
+});
+
+screen.on('keyup', e => {
+	if (e.keyCode === UP_ARROW || e.keyCode === DOWN_ARROW) {
+		dz = 0;
+	} else if (e.keyCode === LEFT_ARROW || e.keyCode === RIGHT_ARROW) {
+		dx = 0;
+	}
 });
 
 
+//----- Floor
+const floorTexture = new three.TextureLoader().load('textures/texture_1.jpg');
+floorTexture.wrapS = three.RepeatWrapping;
+floorTexture.wrapT = three.RepeatWrapping;
+floorTexture.repeat.set(128, 128);
+
+const floorMaterial = new three.MeshStandardMaterial({ map: floorTexture });
+const geoFloor = new three.PlaneGeometry(1000, 1000, 4, 4);
+geoFloor.rotateX(-Math.PI * 0.5);
+const meshFloor = new three.Mesh(geoFloor, floorMaterial);
+meshFloor.receiveShadow = true;
+
+screen.scene.add(meshFloor);
+//-----
+
+const ambientLight = new three.AmbientLight(0xffeeee, 0.3);
+screen.scene.add(ambientLight);
+
+const directionalLight = new three.DirectionalLight(0xeeeeff, 1.8);
+directionalLight.position.set(-150, 350, 250);
+screen.scene.add(directionalLight);
+
+const d = 256;
+directionalLight.castShadow = true;
+directionalLight.shadow.camera.left = -d;
+directionalLight.shadow.camera.right = d;
+directionalLight.shadow.camera.top = d;
+directionalLight.shadow.camera.bottom = -d;
+directionalLight.shadow.camera.near = 10;
+directionalLight.shadow.camera.far = 500;
+directionalLight.shadow.mapSize.x = 2048;
+directionalLight.shadow.mapSize.y = 2048;
+directionalLight.shadow.intensity = 0.55;
+
+const plane = new Shape({
+	sceneThree: screen.scene,
+	color: 0xff0000,
+	type: 'plane',
+	debug: 'wire',
+});
+
+const raycaster = new three.Raycaster();
+const mouse = new three.Vector2();
 
 
-
-
-
-const update = () => {
+screen.on('mousedown', (e) => {
+	mouse.x = (e.x / screen.w) * 2 - 1;
+	mouse.y = -(e.y / screen.h) * 2 + 1;
 	
-	renderer.render(scene, cameraPerspective);
+	raycaster.setFromCamera(mouse, screen.camera);
+	const ray = raycaster.ray;
+	
+	const start = ray.origin;
+	const end = ray.at(9001, new three.Vector3());
+	
+	const { body } = scene.hit(start, end);
+	const shape: TShapeInstance | null = body instanceof Shape ? body as TShapeInstance : null;
+	
+	if (shape?.mass) {
+		if (e.button === 0) { // left
+			shape.vell = [0, 10 + 30 * Math.random(), 0];
+			shape.vela = [10 * Math.random(), 10 * Math.random(), 10 * Math.random()];
+			shape.debug = shape.debug === 'solid' ? 'wire' : 'solid';
+		} else if (e.button === 2) { // right
+			shape.destroy();
+		}
+	}
+});
+
+
+const getCommonOpts = (): TOptsShape => ({
+	sceneThree: screen.scene,
+	pos: getRandomPosition(),
+	mass: getRandom(0.3, 4),
+	debug: 'solid',
+	color: Math.min(0xffffff, 0x888888 + Math.floor(0x888888 * Math.random())),
+});
+
+
+const createCylinder = (): TShapeInstance => {
+	const radius = getRandom(0.5, 2);
+	return new Shape({
+		...getCommonOpts(),
+		type: 'roll',
+		size: [radius, getRandom(5, 10), radius],
+	});
 };
 
-loop(() => update());
+
+const createBox = (): TShapeInstance => new Shape({
+	...getCommonOpts(),
+	size: { x: getRandom(1, 5), y: getRandom(1, 5), z: getRandom(1, 5) },
+});
+
+
+const createSphere = (): TShapeInstance => {
+	const radius = getRandom(2, 3);
+	return new Shape({
+		...getCommonOpts(),
+		type: 'ball',
+		size: [radius, radius, radius],
+	});
+};
+
+
+const createCapsule = (): TShapeInstance => {
+	const radius = getRandom(0.5, 2);
+	return new Shape({
+		...getCommonOpts(),
+		type: 'pill',
+		size: [radius, getRandom(5, 10), radius],
+	});
+};
+
+const bodies: TShapeInstance[] = [];
+
+for (let i = 0; i < 40; i++) {
+	bodies.push(createBox());
+	bodies.push(createCylinder());
+	bodies.push(createCapsule());
+	bodies.push(createSphere());
+}
+
+
+loop(() => {
+	screen.camera.position.x += dx;
+	screen.camera.position.y += dy;
+	screen.camera.position.z += dz;
+	
+	scene.update();
+	screen.draw();
+});
