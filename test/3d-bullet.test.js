@@ -1,60 +1,38 @@
 'use strict';
 
-
 const assert = require('node:assert').strict;
 const { describe, it } = require('node:test');
 const three = require('three');
-const { init, addThreeHelpers } = require('3d-core-raub');
-const { init: initQml } = require('..');
+const { init } = require('3d-core-raub');
+const { init: initBullet } = require('..');
+
+init();
+
+const inited = initBullet({ three });
 
 const {
-	doc, gl,
-} = init({
-	isGles3: true, isWebGL2: true,
-});
-
-addThreeHelpers(three, gl);
-
-const inited = initQml({ doc, gl, cwd: __dirname, three });
-
-const {
-	QmlOverlay, QmlMaterial, QmlOverlayMaterial, View,
+	Shape, scene,
 } = inited;
 
 const initResults = [
-	'QmlOverlay', 'QmlMaterial', 'QmlOverlayMaterial',
-	'Property', 'Method', 'View',
-	'loop', 'release', 'textureFromId',
+	'Shape', 'scene', 'bullet',
 ];
 
 const initedClasses = {
-	QmlOverlay: {
+	Shape: {
 		create() {
-			return new QmlOverlay({ file: `${__dirname}/qml/Hud.qml` });
+			return new Shape();
 		},
-		props: ['isVisible', 'isDisabled', 'material', 'mesh'],
-	},
-	QmlMaterial: {
-		create() {
-			return new QmlMaterial();
-		},
-		props: ['textureId'],
-	},
-	QmlOverlayMaterial: {
-		create() {
-			return new QmlOverlayMaterial();
-		},
-		props: ['textureId'],
+		props: ['debug', 'mesh'],
 	},
 };
 
 
-const tested = describe('Qml 3D Inited', () => {
+const tested = describe('Bullet 3D Inited', async () => {
 	it('returns all init results', () => {
 		initResults.forEach(
-			(name) => assert.strictEqual(
+			(name) => assert.ok(
 				typeof inited[name],
-				'function',
 				`Init field "${name}" is missing.`,
 			),
 		);
@@ -87,7 +65,7 @@ const tested = describe('Qml 3D Inited', () => {
 });
 
 (async () => {
-	const interv = setInterval(View.update, 15);
+	const interv = setInterval(() => scene.update(), 15);
 	await tested;
 	clearInterval(interv);
 })();

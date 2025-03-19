@@ -6,7 +6,7 @@ const { Body } = require('bullet-raub');
 const _init = ({ scene, three }) => {
 	class Shape extends Body {
 		
-		constructor(opts) {
+		constructor(opts = {}) {
 			const { sceneBullet, sceneThree, mesh, debug, color, ...rest } = opts;
 			const sceneFinal = sceneBullet || scene;
 			super({ ...rest, scene: sceneFinal });
