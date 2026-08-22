@@ -104,8 +104,8 @@ jobs:
       - uses: actions/upload-artifact@v7
         if: always() && steps.diff-artifacts.outputs.present == 'true'
         with:
-          name: __diff__-${{ matrix.target }}
+          name: screenshot-diff-${{ matrix.target }}
           path: test/__diff__
-          retention-days: 1
+          retention-days: 7
           compression-level: 0
           overwrite: true

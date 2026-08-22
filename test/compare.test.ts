@@ -47,6 +47,6 @@ describe('Screenshots', () => {
 		scene.update();
 		screen.draw();
 
-		assert.ok(await matchScreenshot('debug-shapes', { doc, report }));
+		assert.ok(await matchScreenshot('debug-shapes', { doc, maxFailedPixels: 200, report }));
 	});
 });

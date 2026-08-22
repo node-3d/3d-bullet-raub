@@ -16,6 +16,11 @@ const applyGlesWindowHints = (currentGlfw: TGlfw): void => {
 	currentGlfw.windowHint(currentGlfw.SAMPLES, 0);
 };
 
+const applyHeadlessWindowHints = (currentGlfw: TGlfw): void => {
+	currentGlfw.windowHint(currentGlfw.CONTEXT_CREATION_API, currentGlfw.EGL_CONTEXT_API);
+	applyGlesWindowHints(currentGlfw);
+};
+
 const bootstrapHeadlessGlfw = async (): Promise<TGlfw | null> => {
 	if (!shouldUseHeadlessGlfw) {
 		return null;
@@ -48,7 +53,7 @@ const getInitOpts = (): TInitOpts => {
 			isWebGL2: true,
 			isVisible: false,
 			onBeforeWindow(_window, currentGlfw) {
-				applyGlesWindowHints(currentGlfw as TGlfw);
+				applyHeadlessWindowHints(currentGlfw as TGlfw);
 			},
 		};
 	}
