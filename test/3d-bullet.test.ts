@@ -1,12 +1,8 @@
 import { strict as assert } from 'node:assert';
 import { describe, it } from 'node:test';
-import * as three from 'three';
-import { init } from '@node-3d/core';
-import { init as initBullet } from '@node-3d/plugin-bullet';
+import initForTest from './init.ts';
 
-init();
-
-const inited = initBullet({ three });
+const inited = await initForTest();
 
 const { Shape, scene } = inited;
 
